@@ -27,7 +27,7 @@ class Restaurant
     #[ORM\ManyToOne(inversedBy: 'restaurants')]
     private ?City $city = null;
 
-    #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: Media::class)]
+    #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: Media::class,cascade:["persist"])]
     private Collection $media;
 
     #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: Review::class)]
