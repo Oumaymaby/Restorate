@@ -2,27 +2,28 @@
 
 namespace App\Form;
 
-use App\Entity\Media;
-
+use App\Entity\Restaurant;
 use Symfony\Component\Form\AbstractType;
-use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MediaType extends AbstractType
+class RestaurantType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('image',VichFileType::class)
-           
+            ->add('name')
+            ->add('createAt')
+            ->add('updateAt')
+            ->add('city')
+            ->add('user')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Media::class,
+            'data_class' => Restaurant::class,
         ]);
     }
 }

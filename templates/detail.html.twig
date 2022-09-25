@@ -1,0 +1,38 @@
+{% extends 'home.html.twig' %}
+{% block body %}
+    <br>
+    <br>
+    <br>
+    <h1>{{ restaurant.name }}</h1>
+    <img src="">
+    <small>{{ restaurant.city }}</small><br>
+    <br><br><br>
+
+    <div class="list-group">
+        {% for restaurant in restaurant.reviews %}
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ restaurant.user }}</h5>
+                {# <small>{{ restaurant.createAt }}</small> #}
+                </div>
+                <p class="mb-1">{{ restaurant.message }}</small>
+            </a>
+            
+        {% endfor %}
+    </div>   
+    <form>
+        <fieldset>
+            <div class="form-group">
+                <label for="exampleTextarea" class="form-label mt-4">Laissez un commentaire</label>
+                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+            </div>
+            <br><button type="submit" class="btn btn-primary">Submit</button>
+            
+        </fieldset>
+    </form>
+    <br>
+    <br>
+{% endblock %}
+
+
+

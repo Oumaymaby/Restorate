@@ -1,0 +1,16 @@
+{% extends 'home.html.twig' %}
+{% block body %}
+<br>
+<br>
+
+<br>
+    {% for rest in rest %}
+        <h1>{{ rest.name }}</h1>
+        <img src="">
+        <small>{{ rest.city }}</small><br>
+        <a type="button" class="btn btn-primary" href="{{ path('details_review',{'id': rest.id}) }}">LIRE LA SUITE</a> 
+        <br><br><br>
+    {% else %}
+        <h1>No restaurant</h1>
+    {% endfor %}        
+{% endblock %}
