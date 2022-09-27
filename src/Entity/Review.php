@@ -26,7 +26,7 @@ class Review
     private ?User $user = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $createAt = null;
+    private ?\DateTime $createAt = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $message = null;
@@ -72,14 +72,14 @@ class Review
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeImmutable
+    public function getCreateAt(): ?\DateTime
     {
         return $this->createAt;
     }
 
-    public function setCreateAt(?\DateTimeImmutable $createAt): self
+    public function setCreateAt(): self
     {
-        $this->createAt = $createAt;
+        $this->createAt = new \DateTime("now");
 
         return $this;
     }

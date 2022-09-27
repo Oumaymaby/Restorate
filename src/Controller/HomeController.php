@@ -6,23 +6,18 @@ use App\Entity\Review;
 use App\Entity\Restaurant;
 use App\Repository\RestaurantRepository;
 use App\Repository\ReviewRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Validator\Constraints\Date;
 
-#[Route('/home')]
 class HomeController extends AbstractController
 {
-    #[Route('/', name: 'home_restaurant', methods: ['GET'])]
-    public function index(RestaurantRepository $restRepository): Response
-    {
-        return $this->render('home.html.twig', [
-            'rest' => $restRepository->findAll(),
-        ]);
-    }
-
-    #[Route('/rest', name: 'home_rest', methods: ['GET'])]
+   
+    #[Route('/', name: 'home_rest', methods: ['GET'])]
     public function rest(RestaurantRepository $restRepository): Response
     {
         return $this->render('blogresto.html.twig', [
@@ -31,11 +26,23 @@ class HomeController extends AbstractController
     }
 
     #[Route('/detail/{id}', name: 'details_review', methods: ['GET', 'POST'])]
-    public function show(Restaurant $restaurant): Response
+    public function show(Restaurant $restaurant,ReviewRepository $reviewRepository,Request $request,): Response
     {
-        return $this->render('detail.html.twig', [
-            'restaurant' => $restaurant,
-        ]);
-    }
+        $review = new review();
+        $review->setCreateAt();
+        $form = $this->createFormBuilder($review)
+            ->add('message')
+            ->add('restaurant')
+            ->getForm();
+        $form->handleRequest($request);
+ 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $reviewRepository->add($review, true);
 
+            return $this->render('detail.html.twig', [
+                'restaurant' => $restaurant,
+                'form' => $form->createView(),
+            ]);
+        } 
+    }   
 }
